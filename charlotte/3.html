@@ -1,0 +1,29 @@
+<h1>So You've Solved the Puzzle?</h1>
+
+<p>Enter your solution: </p> <input id="guess" type="text" /> <button onclick="check()">Check</button>
+
+<p id="wrong"></p>
+
+<div id="prize" style="visibility: hidden;">
+    <h3>Nice!</h3>
+    <p>
+        I don't have a prize for you this time. But I hope you enjoyed your gift :)<br>
+        I'm so excited to be here in Europe with you. I love you Charlotte!
+    </p>
+
+
+</div>
+
+
+<script>
+    // Don't mind the poorly hidden password. This isn't anything that needs to be secured ;)
+    function check() {
+        let guess = document.getElementById("guess").value;
+        if (guess.toLowerCase() === "hitori omou" || guess == "一人思う") {
+            document.getElementById("prize").style.visibility = "visible";
+            document.getElementById("wrong").innerHTML = "";
+        } else {
+            document.getElementById("wrong").innerHTML = "Nope, " + guess + " isn't the right answer. Try again!";
+        }
+    }
+</script>
