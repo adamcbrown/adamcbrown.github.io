@@ -1,0 +1,75 @@
+<h1>Month 7 :)</h1>
+
+<p>A shift cypher is a way to encrypt and decrypt text. You give a number between 1 and 25 as a key to shift letters.
+    For
+    example:</p>
+
+<p>If the key is 5:</p>
+<p>When encrypting, A becomes F, becase F is 5 letters above A. When decrypting F --> A because A is 5 below F.</p>
+<p>Letters also wrap back around, so for key a 5, Z --> A --> B --> C --> D --> E</p>
+
+<p> You don't need to actually do the calculations, you just need to find the key. Once you do, type it in here to
+    generate the decrpytion table :)</p>
+
+Enter Key: <input type="number" id="key" value=5>
+<table id="code"></table>
+
+<style scoped>
+    table {
+        border-width: 2px;
+        border-style: solid;
+        border-color: black;
+    }
+
+    td.header {
+        border: 0px;
+    }
+
+    td {
+        border-width: 2px;
+        border-style: solid;
+        border-color: black;
+        width: 2em;
+        text-align: center;
+    }
+</style>
+
+
+<script>
+    const A = 'A'.charCodeAt(0);
+    const input = document.getElementById("key");
+
+    function buildTable() {
+        let key = Number.parseInt(input.value);
+        while (key > 26) {
+            key -= Math.floor(key / 26) * 26
+        }
+        const tbl = document.createElement("table");
+        tbl.setAttribute("id", "code")
+
+        // Build encrypt row
+        const row1 = tbl.insertRow();
+        const header1 = row1.insertCell();
+        header1.classList.add("header")
+        header1.appendChild(document.createTextNode("Encrpyted:"))
+        for (let i = 0; i < 26; i++) {
+            let char = String.fromCharCode(A + i)
+            row1.insertCell().appendChild(document.createTextNode(char))
+        }
+
+        // Build decrypt row
+        const row2 = tbl.insertRow();
+        const header2 = row2.insertCell();
+        header2.classList.add("header")
+        header2.appendChild(document.createTextNode("Decrypted:"))
+        for (let i = 0; i < 26; i++) {
+            let char = String.fromCharCode(A + ((i + 26 - key) % 26))
+            row2.insertCell().appendChild(document.createTextNode(char))
+        }
+
+        document.getElementsByTagName("body")[0].replaceChild(tbl, document.getElementById("code"))
+    }
+
+    input.addEventListener("input", (e) => buildTable());
+    buildTable();
+</script>
